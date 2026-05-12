@@ -38,10 +38,12 @@ export const slopScoreConfigSchema = z.object({
   })),
   rules: z.array(ruleConfigSchema),
   metrics: z.object({
-    strongClaimWithoutUrlPenalty: z.number(),
-    evidenceDiscountWithUrl: z.number(),
-    allCapsPenalty: z.number(),
-    punctuationBurstPenalty: z.number(),
+    polishedLongformPenalty: z.number(),
+    sentenceUniformityPenalty: z.number(),
+    lowSpecificityPenalty: z.number(),
+    emojiMarketingPenalty: z.number(),
+    promoFormatPenalty: z.number(),
+    personalTextureDiscount: z.number(),
     shortTextConfidencePenalty: z.number()
   }),
   calibration: z.object({

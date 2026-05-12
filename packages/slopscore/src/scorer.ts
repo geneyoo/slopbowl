@@ -118,11 +118,11 @@ function summarize(score: number, components: ComponentResult[]): string {
     .map((component) => component.id);
 
   if (top.length === 0) {
-    return "Low visible slop from deterministic checks.";
+    return "Low visible LLM-generation signal from deterministic checks.";
   }
 
   const level = score >= 75 ? "High" : score >= 50 ? "Moderate" : "Light";
-  return `${level} slop signal driven by ${top.join(", ")}.`;
+  return `${level} LLM-generation signal driven by ${top.join(", ")}.`;
 }
 
 function clamp(value: number, min: number, max: number): number {

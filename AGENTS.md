@@ -6,6 +6,7 @@
 - Keep scoring deterministic and config-driven before adding model calls.
 - Do not hardcode scoring constants in logic; put rules, weights, caps, labels, and thresholds in config.
 - Every score must expose evidence so tuning is debuggable.
+- SlopScore means estimated LLM-generation likelihood, not general content quality.
 
 ```bash
 npm install

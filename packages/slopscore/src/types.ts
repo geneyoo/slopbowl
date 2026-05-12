@@ -49,10 +49,12 @@ export interface LabelConfig {
 }
 
 export interface MetricConfig {
-  strongClaimWithoutUrlPenalty: number;
-  evidenceDiscountWithUrl: number;
-  allCapsPenalty: number;
-  punctuationBurstPenalty: number;
+  polishedLongformPenalty: number;
+  sentenceUniformityPenalty: number;
+  lowSpecificityPenalty: number;
+  emojiMarketingPenalty: number;
+  promoFormatPenalty: number;
+  personalTextureDiscount: number;
   shortTextConfidencePenalty: number;
 }
 
