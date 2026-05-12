@@ -1,0 +1,48 @@
+# Xcode
+DerivedData/
+build/
+*.xcuserstate
+*.xcworkspacedata
+xcuserdata/
+*.pbxuser
+*.mode1v3
+*.mode2v3
+*.perspectivev3
+*.moved-aside
+*.ipa
+*.dSYM.zip
+*.dSYM
+
+# Swift Package Manager
+.build/
+.swiftpm/
+Package.resolved
+
+# Node / TypeScript
+node_modules/
+dist/
+coverage/
+*.tsbuildinfo
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# Carthage
+Carthage/Build/
+
+# macOS
+.DS_Store
+*.swp
+*~
+
+# Local secrets
+*.local
+*.local.md
+.env*
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+*.credential*
