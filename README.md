@@ -17,10 +17,32 @@ npm run slopscore -- score --text "Jeff Beck, born in 1944, was an English guita
 Package:
 
 - `packages/slopscore`: reusable library and CLI
+- `packages/discord-bot`: Discord adapter for `/slop` and DM scoring
 - `scoreText(text)`: text-only scoring
 - `scorePost(input)`: normalized post input for future X/Threads adapters
 - `analyzeText(text)`: dry-run analysis without final score collapse
 - `defaultConfig`: tunable rules, weights, caps, labels, and thresholds
+
+## Discord Bot
+
+Create a Discord application, add a bot, then invite it with `bot` and `applications.commands` scopes. Enable the Message Content intent if you want DM text scoring.
+
+```bash
+cp packages/discord-bot/env.example packages/discord-bot/.env
+# fill DISCORD_BOT_TOKEN, DISCORD_CLIENT_ID, optional DISCORD_GUILD_ID
+npm install
+npm run build
+npm run discord
+```
+
+Usage:
+
+```txt
+/slop content: John Mayer, born in 1977...
+```
+
+You can also DM the bot raw text or a link. `DISCORD_GUILD_ID` keeps slash command sync instant during dev; omit it for global commands.
+In server channels, mention the bot with text or a link to score that message.
 
 ## Setup
 
@@ -32,6 +54,7 @@ xcodebuild -project SlopBowl.xcodeproj -scheme SlopBowl -configuration Debug -de
 ## Structure
 
 - `packages/slopscore`: scoring engine
+- `packages/discord-bot`: Discord command and DM adapter
 - `SlopBowl/App`: app entry and root composition
 - `SlopBowl/Core`: coordinators, models, services, utilities
 - `SlopBowl/Features`: feature modules

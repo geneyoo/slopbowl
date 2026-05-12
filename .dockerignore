@@ -1,0 +1,16 @@
+node_modules
+dist
+coverage
+DerivedData
+build
+.git
+.env*
+*.local
+*.secret
+*.secrets
+*.key
+*.pem
+*.p12
+SlopBowl.xcodeproj
+SlopBowl
+SlopBowlTests

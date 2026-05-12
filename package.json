@@ -7,9 +7,10 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "npm run build --workspaces",
-    "test": "npm run test --workspaces",
-    "typecheck": "npm run typecheck --workspaces",
+    "build": "npm run build --workspace @slopbowl/slopscore && npm run build --workspace @slopbowl/discord-bot",
+    "test": "npm run test --workspace @slopbowl/slopscore && npm run test --workspace @slopbowl/discord-bot",
+    "typecheck": "npm run typecheck --workspace @slopbowl/slopscore && npm run typecheck --workspace @slopbowl/discord-bot",
+    "discord": "npm run start --workspace @slopbowl/discord-bot",
     "slopscore": "node packages/slopscore/dist/cli.js"
   },
   "devDependencies": {
