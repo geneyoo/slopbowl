@@ -15,17 +15,8 @@ npm test
 npm run slopscore -- score --text "example" --pretty
 ```
 
-## Project Shape
+## Discord Adapter
 
-- SwiftUI only. No Storyboards/XIBs.
-- MVVM with coordinator-owned navigation.
-- Feature code lives under `SlopBowl/Features/[FeatureName]`.
-- Shared domain and infrastructure live under `SlopBowl/Core`.
-- Shared UI and design tokens live under `SlopBowl/UI`.
-
-## Build
-
-```bash
-xcodegen generate
-xcodebuild -project SlopBowl.xcodeproj -scheme SlopBowl -configuration Debug -destination 'generic/platform=iOS Simulator' build CODE_SIGN_IDENTITY="" CODE_SIGNING_REQUIRED=NO
-```
+- Lives at `packages/discord-bot`.
+- `.env` carries `DISCORD_BOT_TOKEN`, `DISCORD_CLIENT_ID`, optional `DISCORD_GUILD_ID`. Never commit `.env`.
+- Use `npm run discord` after `npm run build`.
