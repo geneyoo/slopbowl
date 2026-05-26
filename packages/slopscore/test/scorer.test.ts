@@ -72,6 +72,30 @@ describe("scoreText", () => {
     expect(highAiPhrasing.score).toBeGreaterThan(lowAiPhrasing.score);
   });
 
+  it("flags dense adjacency clusters of distinct slop rules", () => {
+    const result = scoreText(
+      "First, this stands as a testament to innovation. While many advocate restraint, the development of this game-changer carries significant impact. Ultimately, its lasting legacy is undeniable."
+    );
+
+    expect(result.evidence.some((item) => "id" in item && item.id === "adjacent_slop_cluster")).toBe(true);
+  });
+
+  it("flags polished surface signal on clean long-form prose", () => {
+    const result = scoreText(
+      "The organization has continued to expand its reach across multiple regions. Researchers presented their findings at a recent conference held in Geneva. The work focuses on the responsible development of Advanced AI Systems and the Long Term Risks they may pose. Stakeholders from industry and academia attended the proceedings and contributed to the ongoing discussion."
+    );
+
+    expect(result.evidence.some((item) => "id" in item && item.id === "polished_surface")).toBe(true);
+  });
+
+  it("does not flag polished surface on casual messy text", () => {
+    const result = scoreText(
+      "lol idk man... the show was unreal, you guys -- i can't believe how loud it got!! my ears are still ringing tbh."
+    );
+
+    expect(result.evidence.some((item) => "id" in item && item.id === "polished_surface")).toBe(false);
+  });
+
   it("supports dry-run analysis without final score fields", () => {
     const analysis = analyzeText("Nate Soares is an American artificial intelligence researcher and former executive director.");
 

@@ -1,6 +1,7 @@
 import { defaultConfig } from "./configs/default.js";
 import { normalizeText } from "./normalize.js";
 import { slopInputSchema, slopScoreConfigSchema } from "./schema.js";
+import { evaluateAdjacency } from "./signals/adjacency.js";
 import { evaluateMetrics } from "./signals/metrics.js";
 import { evaluateRules } from "./signals/rules.js";
 import type {
@@ -58,7 +59,8 @@ export function analyzePost(input: SlopInput, config: SlopScoreConfig = defaultC
   const normalized = normalizeText(parsedInput.text);
   const ruleEvidence = evaluateRules(normalized, parsedConfig.rules);
   const metricEvidence = evaluateMetrics(normalized, parsedConfig);
-  const evidence = [...ruleEvidence, ...metricEvidence];
+  const adjacencyEvidence = evaluateAdjacency(ruleEvidence, parsedConfig);
+  const evidence = [...ruleEvidence, ...metricEvidence, ...adjacencyEvidence];
   const components = buildComponentResults(evidence, parsedConfig);
 
   return {

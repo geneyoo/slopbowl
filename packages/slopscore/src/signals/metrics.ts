@@ -87,5 +87,60 @@ export function evaluateMetrics(normalized: NormalizedText, config: SlopScoreCon
     });
   }
 
+  const surface = evaluateSurfacePolish(normalized, config);
+  if (surface) {
+    evidence.push(surface);
+  }
+
   return evidence;
+}
+
+function evaluateSurfacePolish(normalized: NormalizedText, config: SlopScoreConfig): MetricEvidence | null {
+  if (normalized.wordCount < 50) {
+    return null;
+  }
+
+  const text = normalized.original;
+  const reasons: string[] = [];
+
+  const sentencesForCasing = normalized.sentences.filter((sentence) => sentence.trim().length >= 2);
+  if (sentencesForCasing.length >= 2) {
+    const allCapitalized = sentencesForCasing.every((sentence) => /^[\s"'(\[]*[A-Z]/.test(sentence.trim()));
+    if (allCapitalized) {
+      reasons.push("every sentence capitalized");
+    }
+  }
+
+  const messyPunctuation = /\.\.\.|!!|\?\?| -- |--\s|:\)|:\(|;\)|<3|\bxd\b/i;
+  if (!messyPunctuation.test(text)) {
+    reasons.push("no colloquial punctuation");
+  }
+
+  const dirtyWhitespace = /  |\t|\n[ \t]+|\n{3,}|[ \t]+\n/;
+  if (!dirtyWhitespace.test(text)) {
+    reasons.push("clean whitespace");
+  }
+
+  const titleCasePattern = /(?<=[a-z][.,;:]?\s)([A-Z][a-z]+(?:\s+[A-Z][a-z]+){1,4})/g;
+  const titleCaseMatches = [...text.matchAll(titleCasePattern)];
+  if (titleCaseMatches.length >= 2) {
+    reasons.push(`${titleCaseMatches.length} title-cased phrases`);
+  }
+
+  const hasContractions = /\b\w+'(re|ve|ll|s|t|m|d)\b/i.test(text);
+  if (!hasContractions && normalized.wordCount >= 60) {
+    reasons.push("no contractions");
+  }
+
+  if (reasons.length < 3) {
+    return null;
+  }
+
+  return {
+    id: "polished_surface",
+    component: "polishedTone",
+    value: reasons.length,
+    points: reasons.length * config.metrics.polishedSurfacePenalty,
+    description: `Surface polish: ${reasons.join(", ")}.`
+  };
 }

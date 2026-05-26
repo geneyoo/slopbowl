@@ -44,7 +44,11 @@ export const slopScoreConfigSchema = z.object({
     emojiMarketingPenalty: z.number(),
     promoFormatPenalty: z.number(),
     personalTextureDiscount: z.number(),
-    shortTextConfidencePenalty: z.number()
+    shortTextConfidencePenalty: z.number(),
+    adjacentSlopWindow: z.number().nonnegative(),
+    adjacentSlopThreshold: z.number().int().min(2),
+    adjacentSlopPenalty: z.number(),
+    polishedSurfacePenalty: z.number()
   }),
   calibration: z.object({
     scoreMultiplier: z.number().positive()

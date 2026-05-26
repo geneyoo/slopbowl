@@ -56,6 +56,10 @@ export interface MetricConfig {
   promoFormatPenalty: number;
   personalTextureDiscount: number;
   shortTextConfidencePenalty: number;
+  adjacentSlopWindow: number;
+  adjacentSlopThreshold: number;
+  adjacentSlopPenalty: number;
+  polishedSurfacePenalty: number;
 }
 
 export interface CalibrationConfig {

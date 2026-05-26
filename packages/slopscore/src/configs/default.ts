@@ -24,7 +24,11 @@ export const defaultConfig: SlopScoreConfig = {
     emojiMarketingPenalty: 7,
     promoFormatPenalty: 18,
     personalTextureDiscount: -16,
-    shortTextConfidencePenalty: 0.18
+    shortTextConfidencePenalty: 0.18,
+    adjacentSlopWindow: 140,
+    adjacentSlopThreshold: 3,
+    adjacentSlopPenalty: 9,
+    polishedSurfacePenalty: 6
   },
   calibration: {
     scoreMultiplier: 3.2
