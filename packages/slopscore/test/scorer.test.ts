@@ -72,6 +72,22 @@ describe("scoreText", () => {
     expect(highAiPhrasing.score).toBeGreaterThan(lowAiPhrasing.score);
   });
 
+  it("flags rhetorical-question dramatic reveal cadence", () => {
+    const result = scoreText("Em dash is no longer the most glaring indicator of genAI output. Honestly? It's this.");
+
+    expect(result.evidence.some((item) => "ruleId" in item && item.ruleId === "dramatic_reveal_frame")).toBe(true);
+    expect(result.evidence.some((item) => "ruleId" in item && item.ruleId === "contrarian_pivot_frame")).toBe(true);
+    expect(result.evidence.some((item) => "ruleId" in item && item.ruleId === "human_first_person_texture")).toBe(false);
+    expect(result.score).toBeGreaterThanOrEqual(25);
+  });
+
+  it("still credits casual 'honestly,' as human texture", () => {
+    const result = scoreText("honestly i listened to the whole thing and it was kinda fun, you guys");
+
+    expect(result.evidence.some((item) => "ruleId" in item && item.ruleId === "human_first_person_texture")).toBe(true);
+    expect(result.score).toBeLessThan(25);
+  });
+
   it("flags dense adjacency clusters of distinct slop rules", () => {
     const result = scoreText(
       "First, this stands as a testament to innovation. While many advocate restraint, the development of this game-changer carries significant impact. Ultimately, its lasting legacy is undeniable."

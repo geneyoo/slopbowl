@@ -89,6 +89,24 @@ export const defaultConfig: SlopScoreConfig = {
       severity: "high"
     },
     {
+      id: "dramatic_reveal_frame",
+      component: "aiPhrasing",
+      type: "regex",
+      pattern: "\\b(honestly|actually|seriously|really)\\?\\s*(it'?s|this is|here'?s|because|that)\\b|\\bit'?s this[.!]|\\bthis is it[.!]|\\bhere'?s the (thing|kicker|catch|truth|deal|reality|secret|twist)\\b|\\bspoiler:|\\bplot twist:",
+      points: 35,
+      maxMatches: 4,
+      severity: "high"
+    },
+    {
+      id: "contrarian_pivot_frame",
+      component: "genericStructure",
+      type: "regex",
+      pattern: "\\b(is|are|was|were)\\s+no longer (the|just|even|only)\\b|\\bthe real \\w+ (is|are) (not|n'?t)\\b|\\bnot what you (think|expect|imagine|see|are thinking)\\b",
+      points: 14,
+      maxMatches: 4,
+      severity: "high"
+    },
+    {
       id: "balanced_explainer_frame",
       component: "polishedTone",
       type: "regex",
@@ -164,7 +182,7 @@ export const defaultConfig: SlopScoreConfig = {
       id: "human_first_person_texture",
       component: "humanTexture",
       type: "regex",
-      pattern: "\\b(i think|i remember|my take|imo|honestly|personally|i saw|i listened|my favorite|i guess)\\b",
+      pattern: "\\b(i think|i remember|my take|imo|personally|i saw|i listened|my favorite|i guess)\\b|\\bhonestly\\b(?!\\?)",
       points: -14,
       maxMatches: 4,
       severity: "medium"
